@@ -2,16 +2,12 @@
 
 (ns dealer-api.core
   (:require [io.pedestal.http :as http]
-            ;; Clojure data structures are immutable, they never change unless we use a 
-            ;; special data structure called atom
-            ;; Our strategy is not to freeze repl but to save the running instance of the server in
-            ;; an atom and return from the start function
-            [clojure.tools.namespace.repl :refer [refresh]]
+            [io.pedestal.http.body-params :refer [body-params]]
+            [io.pedestal.http.route :as route]
             [dealer-api.drugs]))
 
 ;; this is the controlling function
 (defn respond-hello [request]
-  (println request " The request ")
   {:status 200
    :body "Hello World"})
 
@@ -19,7 +15,9 @@
 (def routes
   #{["/hello" :get `respond-hello]
     ;; the route-name parameter lets us create named routes
-    ["/drugs" :get dealer-api.drugs/all-drugs :route-name :get-drugs]})
+    ["/drugs" :get dealer-api.drugs/all-drugs :route-name :get-drugs]
+    ;;["/drugs" :post [(body-params) dealer-api.drugs/create-drug] :route-name :post-drugs]
+    })
 
 ;; todo add comments when you understand this part
 (def service-map
@@ -27,31 +25,7 @@
    ::http/type   :jetty
    ::http/port   8890})
 
-;; For interactive development
-(defonce server (atom nil))
-
-;; Start a server and bootstrap it with reset function
-(defn go []
-  (reset! server
-          (http/start (http/create-server
-                       (assoc service-map
-                              ::http/join? false))))
-  (prn "Server started on localhost:8890")
-  (prn "Enter (reset) to reload.")
-  :started)
-
-;; Stop a server
-(defn halt []
-  (http/stop @server))
-
-;; Stop and start again server using go function
-(defn reset []
-  (halt)
-  (refresh :after 'dealer-api.core/go))
-
-;; rich comment to use in repl
-(comment
-  (do
-    (require '[dealer-api.config :refer [db]])
-    (require '[dealer-api.sql.drugs :as sd] :reload)
-    (require '[dealer-api.drugs :as d] :reload)))
+(defn start-server []
+  (http/start (http/create-server
+               (assoc service-map
+                      ::http/join? false))))
