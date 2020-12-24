@@ -1,0 +1,12 @@
+;; this file is equal to the package.json of node
+{:paths ["src"] ;; is telling clojure where to look for source code
+ :deps          ;; is telling clojure which dependencies to fetch
+ {io.pedestal/pedestal.service {:mvn/version "0.5.7"} ;; routing
+  io.pedestal/pedestal.jetty {:mvn/version "0.5.7"} ;; server
+  com.layerware/hugsql {:mvn/version "0.4.9"} ;; convert sql to clojure functions
+  org.clojure/tools.namespace {:mvn/version "0.2.11"} ;; reloading code
+  org.clojure/tools.logging {:mvn/version "0.3.1"}
+  ch.qos.logback/logback-classic {:mvn/version "1.1.3"}}
+ :mvn/repos ;; configures where we should be looking for the required deps (we can add private repos here)
+ {"central" {:url "https://repo1.maven.org/maven2/"}
+  "clojars" {:url "https://clojars.org/repo"}}}
