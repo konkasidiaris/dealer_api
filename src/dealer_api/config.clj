@@ -4,6 +4,6 @@
 (def db
   {:classname "org.postgresql.Driver"
    :subprotocol "postgresql"
-   :subname "//localhost:5432/dealer_dev"
+   :subname "//localhost:5432/postgres"
    :user "postgres"
    :password "password"})

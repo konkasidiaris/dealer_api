@@ -1,5 +1,5 @@
 ;; this file is equal to the package.json of node
-{:paths ["src"] ;; is telling clojure where to look for source code
+{:paths ["src" "resources"] ;; is telling clojure where to look for source code
  :deps          ;; is telling clojure which dependencies to fetch
  {io.pedestal/pedestal.service {:mvn/version "0.5.7"} ;; routing
   io.pedestal/pedestal.jetty {:mvn/version "0.5.7"} ;; server

@@ -6,7 +6,8 @@
             ;; special data structure called atom
             ;; Our strategy is not to freeze repl but to save the running instance of the server in
             ;; an atom and return from the start function
-            [clojure.tools.namespace.repl :refer [refresh]]))
+            [clojure.tools.namespace.repl :refer [refresh]]
+            [dealer-api.drugs]))
 
 ;; this is the controlling function
 (defn respond-hello [request]
@@ -16,7 +17,9 @@
 
 ;; this is the routing function
 (def routes
-  #{["/hello" :get `respond-hello]})
+  #{["/hello" :get `respond-hello]
+    ;; the route-name parameter lets us create named routes
+    ["/drugs" :get dealer-api.drugs/all-drugs :route-name :get-drugs]})
 
 ;; todo add comments when you understand this part
 (def service-map
@@ -45,3 +48,10 @@
 (defn reset []
   (halt)
   (refresh :after 'dealer-api.core/go))
+
+;; rich comment to use in repl
+(comment
+  (do
+    (require '[dealer-api.config :refer [db]])
+    (require '[dealer-api.sql.drugs :as sd] :reload)
+    (require '[dealer-api.drugs :as d] :reload)))
