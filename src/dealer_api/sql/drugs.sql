@@ -5,5 +5,7 @@ SELECT * FROM dealer_dev.drugs;  -- the actual query
 -- :name new-drug :insert :1
 INSERT INTO
 dealer_dev.drugs(name, availability, price)
+-- ;; name availability and price in values signify variables
+-- ;; they are provided by the caller in a map passed as second argument
 VALUES(:name, :availability, :price)
 RETURNING id;

@@ -16,8 +16,7 @@
   #{["/hello" :get `respond-hello]
     ;; the route-name parameter lets us create named routes
     ["/drugs" :get dealer-api.drugs/all-drugs :route-name :get-drugs]
-    ;;["/drugs" :post [(body-params) dealer-api.drugs/create-drug] :route-name :post-drugs]
-    })
+    ["/drugs" :post [(body-params) dealer-api.drugs/create-drug] :route-name :post-drugs]})
 
 ;; todo add comments when you understand this part
 (def service-map
