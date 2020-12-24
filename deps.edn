@@ -4,6 +4,7 @@
  {io.pedestal/pedestal.service {:mvn/version "0.5.7"} ;; routing
   io.pedestal/pedestal.jetty {:mvn/version "0.5.7"} ;; server
   com.layerware/hugsql {:mvn/version "0.4.9"} ;; convert sql to clojure functions
+  org.postgresql/postgresql {:mvn/version "42.1.4"}
   org.clojure/tools.namespace {:mvn/version "0.2.11"} ;; reloading code
   org.clojure/tools.logging {:mvn/version "0.3.1"}
   ch.qos.logback/logback-classic {:mvn/version "1.1.3"}}
